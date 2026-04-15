@@ -10,10 +10,11 @@ interface Props {
   locale?: Locale;
 }
 
+const base = import.meta.env.BASE_URL;
 const {
   title,
   description = "Engra enregistre, transcrit et résume vos réunions avec une IA 100% locale. Aucune donnée ne quitte votre ordinateur.",
-  ogImage = "/logo/engra_512.png",
+  ogImage = `${base}logo/engra_512.png`,
   locale = getLangFromUrl(Astro.url),
 } = Astro.props;
 
@@ -56,7 +57,7 @@ const enUrl = new URL(enPath, Astro.site);
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/logo/engra_512.png" />
+    <link rel="icon" type="image/png" href={`${base}logo/engra_512.png`} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

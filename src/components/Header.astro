@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { locale = 'fr' } = Astro.props;
+const base = import.meta.env.BASE_URL;
 const currentPath = Astro.url.pathname;
 
 const links = [
@@ -30,7 +31,7 @@ const switchLabel = t('lang.switchTo', locale);
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
     <!-- Logo -->
     <a href={homeHref} class="flex items-center gap-2.5 group">
-      <img src="/logo/engra_512.png" alt="Engra" class="w-8 h-8 rounded-lg" />
+      <img src={`${base}logo/engra_512.png`} alt="Engra" class="w-8 h-8 rounded-lg" />
       <span class="text-lg font-semibold" style="color: var(--color-text);">Engra</span>
     </a>
 
