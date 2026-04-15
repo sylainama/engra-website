@@ -19,30 +19,34 @@ export const routeMap: Record<string, Record<Locale, string>> = {
 
 /** Get URL for a named route in a specific locale. */
 export function getRouteHref(routeKey: string, locale: Locale): string {
-  return routeMap[routeKey]?.[locale] ?? '/';
+  const base = import.meta.env.BASE_URL ?? '/';
+  const path = routeMap[routeKey]?.[locale] ?? '/';
+  if (path === '/') return base;
+  return `${base}${path.startsWith('/') ? path.slice(1) : path}`;
 }
 
 /** Given a current page path, return the equivalent path in the target locale. */
 export function getAlternatePath(currentPath: string, targetLocale: Locale): string {
+  const base = import.meta.env.BASE_URL ?? '/';
+  // Strip base prefix for matching
+  const stripped = currentPath.startsWith(base) ? currentPath.slice(base.length - 1) : currentPath;
   // Normalize: remove trailing slash (except for root)
-  const normalized = currentPath.length > 1 ? currentPath.replace(/\/$/, '') : currentPath;
+  const normalized = stripped.length > 1 ? stripped.replace(/\/$/, '') : stripped;
 
   for (const routes of Object.values(routeMap)) {
-    // Check both locales
-    if (routes.fr === normalized) return routes[targetLocale];
-    // For EN root, also match '/en'
+    if (routes.fr === normalized) return getRouteHref(Object.keys(routeMap).find(k => routeMap[k] === routes)!, targetLocale);
     if (routes.en === normalized || routes.en.replace(/\/$/, '') === normalized) {
-      return routes[targetLocale];
+      return getRouteHref(Object.keys(routeMap).find(k => routeMap[k] === routes)!, targetLocale);
     }
   }
 
-  // Fallback: if the path starts with /en/, strip the prefix for FR, or add it for EN
+  // Fallback
   if (targetLocale === 'fr' && normalized.startsWith('/en/')) {
-    return normalized.slice(3) || '/';
+    return `${base}${(normalized.slice(4) || '')}`;
   }
   if (targetLocale === 'en' && !normalized.startsWith('/en')) {
-    return `/en${normalized}`;
+    return `${base}en${normalized}`;
   }
 
-  return normalized;
+  return `${base}${normalized.startsWith('/') ? normalized.slice(1) : normalized}`;
 }
