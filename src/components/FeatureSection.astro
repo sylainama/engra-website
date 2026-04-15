@@ -1,0 +1,45 @@
+---
+import { t } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  bullets: string[];
+  reversed?: boolean;
+  locale?: Locale;
+}
+
+const { title, description, bullets, reversed = false, locale = 'fr' } = Astro.props;
+---
+
+<section class="py-16 lg:py-24">
+  <div
+    class:list={[
+      "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col gap-10 items-center",
+      reversed ? "lg:flex-row-reverse" : "lg:flex-row",
+    ]}
+  >
+    <div class="flex-1 max-w-xl">
+      <h2 class="text-3xl lg:text-4xl font-semibold mb-4" style="color: var(--color-text);">{title}</h2>
+      <p class="text-base leading-relaxed mb-6" style="color: var(--color-muted);">{description}</p>
+      <ul class="space-y-3">
+        {bullets.map((b) => (
+          <li class="flex items-start gap-3 text-sm" style="color: var(--color-muted);">
+            <svg class="w-5 h-5 mt-0.5 flex-shrink-0" style="color: var(--color-accent);" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div
+      class="flex-1 w-full max-w-xl aspect-video rounded-2xl border flex items-center justify-center"
+      style="background: var(--color-surface); border-color: var(--color-border);"
+    >
+      <span class="text-sm" style="color: var(--color-muted);">{t('featureSection.screenshot', locale)}</span>
+    </div>
+  </div>
+</section>

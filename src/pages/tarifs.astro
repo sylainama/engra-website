@@ -1,0 +1,85 @@
+---
+import Page from "../layouts/Page.astro";
+import PricingTable from "../components/PricingTable.astro";
+import FAQ from "../components/FAQ.astro";
+---
+
+<Page title="Tarifs — Engra" description="Licence unique à partir de 49€. Pas d'abonnement.">
+  <section class="pt-24 pb-8 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h1 class="text-4xl lg:text-5xl mb-4" style="font-family: var(--font-serif); color: var(--color-text);">
+        Un achat. Pour toujours.
+      </h1>
+      <p class="text-lg mb-2" style="color: var(--color-muted);">
+        Pas d'abonnement, pas de frais cachés. Payez une fois, c'est à vous.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PricingTable />
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-16" style="background: var(--color-surface);">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="text-2xl font-semibold mb-10" style="color: var(--color-text);">Comment ça marche</h2>
+      <div class="grid sm:grid-cols-3 gap-8">
+        {[
+          { step: "1", title: "Téléchargez", desc: "Installez Engra gratuitement sur votre machine." },
+          { step: "2", title: "Achetez", desc: "Quand vous êtes convaincu, achetez une licence à partir de 49€." },
+          { step: "3", title: "Activez", desc: "Recevez votre clé par email et activez-la dans l'app." },
+        ].map((item) => (
+          <div class="text-center">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white mx-auto mb-3" style="background: var(--color-accent);">
+              {item.step}
+            </div>
+            <h3 class="text-sm font-semibold mb-1" style="color: var(--color-text);">{item.title}</h3>
+            <p class="text-xs" style="color: var(--color-muted);">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-semibold text-center mb-10" style="color: var(--color-text);">Questions fréquentes</h2>
+      <FAQ
+        items={[
+          {
+            question: "Y a-t-il un abonnement ?",
+            answer: "Non. C'est un achat unique. Vous possédez la licence pour toujours. Les mises à jour mineures sont incluses.",
+          },
+          {
+            question: "Puis-je changer d'appareil ?",
+            answer: "Oui. Désactivez un appareil depuis les Paramètres d'Engra et activez-en un nouveau. Le nombre d'appareils simultanés dépend de votre plan.",
+          },
+          {
+            question: "Quelle est la politique de remboursement ?",
+            answer: "30 jours satisfait ou remboursé, sans questions. Contactez-nous simplement par email.",
+          },
+          {
+            question: "Comment fonctionne l'IA ?",
+            answer: "L'IA tourne intégralement sur votre machine. Les modèles sont téléchargés au premier lancement, puis tout fonctionne hors-ligne sans aucune connexion.",
+          },
+          {
+            question: "Faut-il une connexion internet ?",
+            answer: "Non. Tout fonctionne entièrement hors-ligne après le téléchargement initial des modèles. Parfait pour les contextes sensibles ou sécurisés.",
+          },
+          {
+            question: "L'application est-elle compatible Apple Silicon ?",
+            answer: "Oui. Engra est distribué en Universal binary (Apple Silicon + Intel). Sur Mac M1/M2/M3/M4, les modèles IA exploitent nativement le Neural Engine pour de meilleures performances.",
+          },
+          {
+            question: "Mes données sont-elles envoyées quelque part ?",
+            answer: "Non. Engra ne contacte aucun serveur externe en dehors de la vérification de licence. Vos enregistrements, transcriptions et résumés restent exclusivement sur votre machine.",
+          },
+        ]}
+      />
+    </div>
+  </section>
+</Page>

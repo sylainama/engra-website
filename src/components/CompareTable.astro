@@ -1,0 +1,52 @@
+---
+import { t } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'fr' } = Astro.props;
+
+const features = [
+  { name: t('compare.f1', locale), engra: true, otter: false, fireflies: false },
+  { name: t('compare.f2', locale), engra: true, otter: true, fireflies: true },
+  { name: t('compare.f3', locale), engra: true, otter: true, fireflies: true },
+  { name: t('compare.f4', locale), engra: true, otter: true, fireflies: true },
+  { name: t('compare.f5', locale), engra: true, otter: false, fireflies: false },
+  { name: t('compare.f6', locale), engra: true, otter: false, fireflies: false },
+  { name: t('compare.f7', locale), engra: true, otter: false, fireflies: false },
+  { name: t('compare.f8', locale), engra: true, otter: false, fireflies: false },
+  { name: t('compare.f9', locale), engra: true, otter: false, fireflies: false },
+  { name: t('compare.f10', locale), engra: true, otter: false, fireflies: false },
+];
+
+function checkIcon(ok: boolean) {
+  return ok
+    ? `<svg class="w-5 h-5 mx-auto" style="color: var(--color-success);" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>`
+    : `<svg class="w-5 h-5 mx-auto" style="color: var(--color-danger);" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`;
+}
+---
+
+<div class="overflow-x-auto">
+  <table class="w-full max-w-4xl mx-auto text-sm" style="color: var(--color-text);">
+    <thead>
+      <tr class="border-b" style="border-color: var(--color-border);">
+        <th class="text-left py-4 pr-4 font-medium" style="color: var(--color-muted);"></th>
+        <th class="py-4 px-4 font-semibold" style="color: var(--color-accent);">Engra</th>
+        <th class="py-4 px-4 font-semibold" style="color: var(--color-muted);">Otter.ai</th>
+        <th class="py-4 px-4 font-semibold" style="color: var(--color-muted);">Fireflies</th>
+      </tr>
+    </thead>
+    <tbody>
+      {features.map((f) => (
+        <tr class="border-b" style="border-color: var(--color-border);">
+          <td class="py-3 pr-4" style="color: var(--color-muted);">{f.name}</td>
+          <td class="py-3 px-4 text-center" set:html={checkIcon(f.engra)} />
+          <td class="py-3 px-4 text-center" set:html={checkIcon(f.otter)} />
+          <td class="py-3 px-4 text-center" set:html={checkIcon(f.fireflies)} />
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

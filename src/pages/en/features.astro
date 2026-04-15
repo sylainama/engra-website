@@ -1,0 +1,144 @@
+---
+import Page from "../../layouts/Page.astro";
+import FeatureSection from "../../components/FeatureSection.astro";
+import CTA from "../../components/CTA.astro";
+
+const locale = "en";
+---
+
+<Page
+  title="Features — Engra"
+  description="Discover all Engra features: recording, transcription, AI summaries, knowledge graph, semantic search, YouTube import and more."
+  locale={locale}
+>
+  <section class="pt-24 pb-12 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h1 class="text-4xl lg:text-5xl mb-4" style="font-family: var(--font-serif); color: var(--color-text);">
+        Everything you need
+      </h1>
+      <p class="text-lg" style="color: var(--color-muted);">
+        A complete tool to capture, understand and leverage your meetings.
+      </p>
+    </div>
+  </section>
+
+  <FeatureSection
+    locale={locale}
+    title="Recording & automatic detection"
+    description="Engra automatically detects your ongoing meetings and can start recording for you."
+    bullets={[
+      "Detection: Zoom, Teams, Google Meet, Slack, Discord",
+      "Simultaneous system audio + microphone capture",
+      "Parallel mic and system recording",
+      "Global shortcut: Cmd+Shift+R",
+      "Quick voice notes: Cmd+Shift+N",
+      "Configurable auto-record with countdown",
+    ]}
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="Local transcription"
+    description="The transcription engine runs entirely on your machine. No audio data is ever sent anywhere."
+    bullets={[
+      "Embedded AI engine, 100% offline",
+      "Incremental real-time transcription",
+      "Speaker diarization",
+      "Multi-language (English, French, Spanish...)",
+      "Multiple model levels to match your hardware",
+      "Automatic segmentation for long audio",
+    ]}
+    reversed
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="AI Summaries & Actions"
+    description="Local AI generates structured summaries, decisions and action items — everything runs on your workstation."
+    bullets={[
+      "5 model levels: Lite to Ultra",
+      "Structured summary: synthesis, decisions, key points",
+      "Action items with assignee, date, status",
+      "Templates: standup, retro, sales, interview, brainstorm",
+      "Smart processing for long content",
+      "Live summaries during recording",
+    ]}
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="Knowledge graph"
+    description="AI extracts entities from your meetings and builds an interconnected visual graph."
+    bullets={[
+      "Auto-extraction: people, topics, decisions, actions",
+      "2D and 3D graph visualization",
+      "Links between meetings and topics",
+      "Smart duplicate merging",
+      "AI reports per node",
+      "Mind map view",
+    ]}
+    reversed
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="Advanced search"
+    description="Find any information in seconds, even if you don't remember the exact words."
+    bullets={[
+      "Instant full-text search",
+      "Semantic vector search",
+      "Search by tags",
+      "Cmd+K shortcut",
+      "Results with source badges (Text, Tag, AI)",
+    ]}
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="YouTube & PDF import"
+    description="Import YouTube videos or PDFs to transcribe, summarize, and integrate into your knowledge base."
+    bullets={[
+      "YouTube import with course generation",
+      "Batch playlist import",
+      "PDF import with text extraction",
+      "AI-generated quizzes from courses",
+      "Automatic language detection",
+    ]}
+    reversed
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="Calendar integration"
+    description="Connect your calendar to see upcoming meetings and associate recordings with events."
+    bullets={[
+      "Apple Calendar (native)",
+      "Google Calendar",
+      "Microsoft Outlook",
+      "Automatic meeting link extraction",
+      "\"Upcoming meeting\" banner",
+    ]}
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="Export & Backup"
+    description="Export your notes to PDF or Markdown. Automatically back up all your data."
+    bullets={[
+      "Formatted PDF export",
+      "Full Markdown export",
+      "Text-to-speech (TTS) with sentence highlighting",
+      "Auto backup (daily/weekly)",
+      "One-click restore",
+      "Full offline support",
+    ]}
+    reversed
+  />
+
+  <CTA
+    title="Ready to try?"
+    subtitle="100% local, no subscription, one-time purchase."
+    buttonText="Download Engra"
+    buttonHref="/en/download"
+  />
+</Page>

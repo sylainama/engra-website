@@ -1,0 +1,114 @@
+---
+import { t } from '../i18n/utils';
+import { getRouteHref } from '../i18n/routes';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'fr' } = Astro.props;
+const downloadHref = getRouteHref('download', locale);
+
+// Checkout URLs — remplacer par les vrais liens LemonSqueezy/Stripe
+const checkoutUrls = {
+  starter: '', // ex: 'https://engra.lemonsqueezy.com/checkout/buy/xxx'
+  pro: '',
+  team: '',
+};
+
+const plans = [
+  {
+    key: "starter",
+    name: "Starter",
+    price: "49",
+    machines: t('pricing.starter.machines', locale),
+    recommended: false,
+    features: [
+      t('pricing.starter.f1', locale),
+      t('pricing.starter.f2', locale),
+      t('pricing.starter.f3', locale),
+      t('pricing.starter.f4', locale),
+      t('pricing.starter.f5', locale),
+      t('pricing.starter.f6', locale),
+    ],
+  },
+  {
+    key: "pro",
+    name: "Pro",
+    price: "99",
+    machines: t('pricing.pro.machines', locale),
+    recommended: true,
+    features: [
+      t('pricing.pro.f1', locale),
+      t('pricing.pro.f2', locale),
+      t('pricing.pro.f3', locale),
+      t('pricing.pro.f4', locale),
+    ],
+  },
+  {
+    key: "team",
+    name: "Team",
+    price: "199",
+    machines: t('pricing.team.machines', locale),
+    recommended: false,
+    features: [
+      t('pricing.team.f1', locale),
+      t('pricing.team.f2', locale),
+      t('pricing.team.f3', locale),
+    ],
+  },
+];
+---
+
+<div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+  {plans.map((plan) => {
+    const checkout = checkoutUrls[plan.key as keyof typeof checkoutUrls];
+    const href = checkout || downloadHref;
+    const label = checkout ? t('pricing.buy', locale) : t('pricing.download', locale);
+    return (
+    <div
+      class:list={["relative p-6 rounded-2xl border flex flex-col", plan.recommended ? "ring-2" : ""]}
+      style={`background: var(--color-surface); border-color: var(--color-border); ${plan.recommended ? "ring-color: var(--color-accent);" : ""}`}
+    >
+      {plan.recommended && (
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full text-xs font-semibold text-white" style="background: var(--color-accent);">
+          {t('pricing.recommended', locale)}
+        </span>
+      )}
+
+      <h3 class="text-xl font-semibold mb-1" style="color: var(--color-text);">{plan.name}</h3>
+      <p class="text-sm mb-6" style="color: var(--color-muted);">{plan.machines}</p>
+
+      <div class="mb-6">
+        <span class="text-4xl font-bold" style="color: var(--color-text);">{plan.price}€</span>
+        <span class="text-sm ml-1" style="color: var(--color-muted);">{t('pricing.licenseType', locale)}</span>
+      </div>
+
+      <ul class="space-y-3 mb-8 flex-1">
+        {plan.features.map((f) => (
+          <li class="flex items-start gap-2.5 text-sm" style="color: var(--color-muted);">
+            <svg class="w-4 h-4 mt-0.5 flex-shrink-0" style="color: var(--color-success);" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+            </svg>
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+
+      <a
+        href={href}
+        class:list={[
+          "block text-center py-2.5 rounded-xl text-sm font-semibold transition-all hover:-translate-y-0.5",
+          plan.recommended ? "text-white hover:brightness-110" : "border",
+        ]}
+        style={plan.recommended
+          ? "background: var(--color-accent);"
+          : `color: var(--color-text); border-color: var(--color-border);`}
+      >
+        {label}
+      </a>
+    </div>
+    );
+  })}
+</div>

@@ -1,0 +1,160 @@
+---
+import { t } from '../i18n/utils';
+import { getRouteHref, getAlternatePath } from '../i18n/routes';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'fr' } = Astro.props;
+const currentPath = Astro.url.pathname;
+
+const links = [
+  { route: 'features',  label: t('header.features', locale) },
+  { route: 'pricing',   label: t('header.pricing', locale) },
+  { route: 'guide',     label: t('header.guide', locale) },
+  { route: 'download',  label: t('header.download', locale) },
+];
+
+const downloadHref = getRouteHref('download', locale);
+const homeHref = getRouteHref('home', locale);
+const alternatePath = getAlternatePath(currentPath, locale === 'fr' ? 'en' : 'fr');
+const switchLabel = t('lang.switchTo', locale);
+---
+
+<header
+  class="sticky top-0 z-50 border-b backdrop-blur-xl"
+  style="background: var(--color-header-bg); border-color: var(--color-border);"
+>
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <!-- Logo -->
+    <a href={homeHref} class="flex items-center gap-2.5 group">
+      <img src="/logo/engra_512.png" alt="Engra" class="w-8 h-8 rounded-lg" />
+      <span class="text-lg font-semibold" style="color: var(--color-text);">Engra</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden md:flex items-center gap-1">
+      {links.map((link) => {
+        const href = getRouteHref(link.route, locale);
+        return (
+          <a
+            href={href}
+            class="px-3.5 py-2 rounded-lg text-sm font-medium transition-colors"
+            style={currentPath.startsWith(href)
+              ? "color: var(--color-text); background: var(--color-hover-bg);"
+              : "color: var(--color-muted);"}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+    </div>
+
+    <!-- CTA + Language + Theme toggle -->
+    <div class="hidden md:flex items-center gap-3">
+      <a
+        href={alternatePath}
+        class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border transition-colors hover:brightness-110"
+        style="color: var(--color-muted); border-color: var(--color-border);"
+      >
+        {switchLabel}
+      </a>
+
+      <button
+        id="theme-toggle"
+        class="p-2 rounded-lg transition-colors"
+        style="color: var(--color-muted);"
+        aria-label={t('header.themeToggle', locale)}
+      >
+        <svg class="w-5 h-5 dark-icon" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+        </svg>
+        <svg class="w-5 h-5 light-icon hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+        </svg>
+      </button>
+
+      <a
+        href={downloadHref}
+        class="px-4 py-2 rounded-lg text-sm font-semibold text-white transition-all hover:brightness-110"
+        style="background: var(--color-accent);"
+      >
+        {t('header.download', locale)}
+      </a>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden p-2 rounded-lg"
+      style="color: var(--color-muted);"
+      aria-label="Menu"
+    >
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t px-4 pb-4" style="border-color: var(--color-border);">
+    {links.map((link) => {
+      const href = getRouteHref(link.route, locale);
+      return (
+        <a
+          href={href}
+          class="block py-2.5 text-sm font-medium"
+          style={currentPath.startsWith(href) ? "color: var(--color-text);" : "color: var(--color-muted);"}
+        >
+          {link.label}
+        </a>
+      );
+    })}
+    <div class="flex items-center gap-3 mt-2">
+      <a
+        href={alternatePath}
+        class="px-2.5 py-1.5 rounded-lg text-xs font-semibold border"
+        style="color: var(--color-muted); border-color: var(--color-border);"
+      >
+        {switchLabel}
+      </a>
+    </div>
+    <a
+      href={downloadHref}
+      class="mt-2 block text-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white"
+      style="background: var(--color-accent);"
+    >
+      {t('header.downloadFree', locale)}
+    </a>
+  </div>
+</header>
+
+<script is:inline>
+  document.getElementById("mobile-menu-btn")?.addEventListener("click", () => {
+    document.getElementById("mobile-menu")?.classList.toggle("hidden");
+  });
+
+  const toggleBtn = document.getElementById("theme-toggle");
+  function updateIcons() {
+    const isLight = document.documentElement.classList.contains("light");
+    document.querySelectorAll(".dark-icon").forEach(el => el.classList.toggle("hidden", isLight));
+    document.querySelectorAll(".light-icon").forEach(el => el.classList.toggle("hidden", !isLight));
+  }
+  updateIcons();
+  toggleBtn?.addEventListener("click", () => {
+    const html = document.documentElement;
+    const isLight = html.classList.contains("light");
+    if (isLight) {
+      html.classList.remove("light");
+      html.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      html.classList.remove("dark");
+      html.classList.add("light");
+      localStorage.setItem("theme", "light");
+    }
+    updateIcons();
+  });
+</script>

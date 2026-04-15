@@ -1,0 +1,109 @@
+---
+import Page from "../../layouts/Page.astro";
+import Hero from "../../components/Hero.astro";
+import FeatureCard from "../../components/FeatureCard.astro";
+import FeatureSection from "../../components/FeatureSection.astro";
+import CompareTable from "../../components/CompareTable.astro";
+import CTA from "../../components/CTA.astro";
+
+const locale = "en";
+---
+
+<Page title="Engra — 100% local meeting recorder with AI" description="Engra records, transcribes and summarises your meetings with 100% local AI. No data ever leaves your computer." locale={locale}>
+  <Hero locale={locale} />
+
+  <!-- Value propositions -->
+  <section class="py-16 lg:py-20" style="background: var(--color-surface);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3" style="color: var(--color-text);">Why Engra?</h2>
+        <p class="text-base" style="color: var(--color-muted);">Your data stays on your machine. Always.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <FeatureCard
+          icon="🛡️"
+          title="100% local & private"
+          description="All AI runs on your machine. Zero cloud, zero tracking, zero paid API. Your data never leaves your computer."
+        />
+        <FeatureCard
+          icon="✨"
+          title="Built-in AI"
+          description="Automatic summaries, action items, key decisions. Your personal meeting assistant runs locally on your workstation."
+        />
+        <FeatureCard
+          icon="💶"
+          title="One-time purchase"
+          description="No subscription. One license, yours forever. Starting at €49."
+        />
+      </div>
+    </div>
+  </section>
+
+  <FeatureSection
+    locale={locale}
+    title="Smart recording"
+    description="Automatic detection of your Zoom, Teams, Google Meet, Slack and Discord meetings. Simultaneous system audio + microphone capture."
+    bullets={[
+      "Auto-detection of video conferencing apps",
+      "System audio + microphone capture",
+      "Global shortcut to start/stop",
+      "Menu bar notification",
+    ]}
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="Accurate transcription"
+    description="The transcription engine runs locally on your machine. Multi-language, speaker diarization, real-time transcription during recording."
+    bullets={[
+      "100% local, no audio sent anywhere",
+      "Real-time transcription",
+      "Speaker diarization",
+      "Multi-language (English, French, etc.)",
+    ]}
+    reversed
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="AI summaries in one click"
+    description="AI automatically generates a structured summary, decisions made, and action items to follow up on. Templates for every meeting type."
+    bullets={[
+      "Structured summary in one click",
+      "Action items with assignees and dates",
+      "Templates: standup, retro, sales, interview",
+      "All local, no usage limits",
+    ]}
+  />
+
+  <FeatureSection
+    locale={locale}
+    title="Knowledge graph"
+    description="AI automatically extracts entities (people, topics, decisions) and builds a graph connecting all your meetings."
+    bullets={[
+      "Automatic entity extraction",
+      "Interactive graph visualization",
+      "Links between meetings and topics",
+      "Semantic vector search",
+    ]}
+    reversed
+  />
+
+  <!-- Comparison -->
+  <section class="py-16 lg:py-20" style="background: var(--color-surface);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3" style="color: var(--color-text);">Engra vs cloud alternatives</h2>
+        <p class="text-base" style="color: var(--color-muted);">The only solution that keeps your data 100% on your machine.</p>
+      </div>
+      <CompareTable locale={locale} />
+    </div>
+  </section>
+
+  <CTA
+    title="Ready to take back control of your meetings?"
+    subtitle="All features. 100% local. No subscription."
+    buttonText="Download for free"
+    buttonHref="/en/download"
+  />
+</Page>

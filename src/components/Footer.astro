@@ -1,0 +1,78 @@
+---
+import { t } from '../i18n/utils';
+import { getRouteHref } from '../i18n/routes';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'fr' } = Astro.props;
+const year = new Date().getFullYear();
+const homeHref = getRouteHref('home', locale);
+
+const productLinks = [
+  { route: 'features',  label: t('footer.features', locale) },
+  { route: 'pricing',   label: t('footer.pricing', locale) },
+  { route: 'download',  label: t('footer.download', locale) },
+];
+
+const resourceLinks = [
+  { route: 'guide',             label: t('footer.gettingStarted', locale) },
+  { route: 'guideInstallation', label: t('footer.installation', locale) },
+  { route: 'guideFaq',          label: t('footer.faq', locale) },
+];
+
+const legalLinks = [
+  { route: 'legalNotice', label: t('footer.legalNotice', locale) },
+  { route: 'privacy',     label: t('footer.privacy', locale) },
+  { route: 'terms',       label: t('footer.terms', locale) },
+];
+---
+
+<footer class="border-t mt-24" style="border-color: var(--color-border); background: var(--color-surface);">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+      <div class="col-span-2 md:col-span-1">
+        <a href={homeHref} class="flex items-center gap-2.5 mb-4">
+          <img src="/logo/engra_512.png" alt="Engra" class="w-8 h-8 rounded-lg" />
+          <span class="text-lg font-semibold" style="color: var(--color-text);">Engra</span>
+        </a>
+        <p class="text-sm leading-relaxed" style="color: var(--color-muted);">
+          {t('footer.tagline', locale)}
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-semibold mb-4" style="color: var(--color-text);">{t('footer.product', locale)}</h4>
+        <ul class="space-y-2.5">
+          {productLinks.map((link) => (
+            <li><a href={getRouteHref(link.route, locale)} class="text-sm transition-colors hover:underline" style="color: var(--color-muted);">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-semibold mb-4" style="color: var(--color-text);">{t('footer.resources', locale)}</h4>
+        <ul class="space-y-2.5">
+          {resourceLinks.map((link) => (
+            <li><a href={getRouteHref(link.route, locale)} class="text-sm transition-colors hover:underline" style="color: var(--color-muted);">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-sm font-semibold mb-4" style="color: var(--color-text);">{t('footer.legal', locale)}</h4>
+        <ul class="space-y-2.5">
+          {legalLinks.map((link) => (
+            <li><a href={getRouteHref(link.route, locale)} class="text-sm transition-colors hover:underline" style="color: var(--color-muted);">{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t text-center" style="border-color: var(--color-border);">
+      <p class="text-sm" style="color: var(--color-muted);">&copy; {year} Engra. {t('footer.copyright', locale)}</p>
+    </div>
+  </div>
+</footer>

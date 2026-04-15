@@ -1,0 +1,103 @@
+---
+import Page from "../layouts/Page.astro";
+import Hero from "../components/Hero.astro";
+import FeatureCard from "../components/FeatureCard.astro";
+import FeatureSection from "../components/FeatureSection.astro";
+import CompareTable from "../components/CompareTable.astro";
+import CTA from "../components/CTA.astro";
+---
+
+<Page title="Engra — Enregistreur de réunions 100% local avec IA">
+  <Hero />
+
+  <!-- Value propositions -->
+  <section class="py-16 lg:py-20" style="background: var(--color-surface);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3" style="color: var(--color-text);">Pourquoi Engra ?</h2>
+        <p class="text-base" style="color: var(--color-muted);">Vos données restent sur votre machine. Toujours.</p>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6">
+        <FeatureCard
+          icon="🛡️"
+          title="100% local & privé"
+          description="Toute l'IA tourne sur votre machine. Zéro cloud, zéro tracking, zéro API payante. Vos données ne quittent jamais votre ordinateur."
+        />
+        <FeatureCard
+          icon="✨"
+          title="IA intégrée"
+          description="Résumés automatiques, actions items, décisions clés. Votre assistant de réunion personnel tourne en local directement sur votre poste."
+        />
+        <FeatureCard
+          icon="💶"
+          title="Achat unique"
+          description="Pas d'abonnement. Une licence, c'est à vous pour toujours. À partir de 49€."
+        />
+      </div>
+    </div>
+  </section>
+
+  <FeatureSection
+    title="Enregistrement intelligent"
+    description="Détection automatique de vos réunions Zoom, Teams, Google Meet, Slack et Discord. Capture audio système + microphone simultanée."
+    bullets={[
+      "Détection auto des apps de visioconférence",
+      "Capture audio système + microphone",
+      "Raccourci global pour démarrer/arrêter",
+      "Notification dans le menu bar",
+    ]}
+  />
+
+  <FeatureSection
+    title="Transcription précise"
+    description="Le moteur de transcription tourne localement sur votre machine. Multi-langues, diarisation des locuteurs, transcription en temps réel pendant l'enregistrement."
+    bullets={[
+      "100% local, aucun audio envoyé",
+      "Transcription en temps réel",
+      "Diarisation des locuteurs",
+      "Multi-langues (français, anglais, etc.)",
+    ]}
+    reversed
+  />
+
+  <FeatureSection
+    title="Résumés IA en un clic"
+    description="L'IA génère automatiquement un résumé structuré, les décisions prises, et les actions à suivre. Templates adaptés à chaque type de réunion."
+    bullets={[
+      "Résumé structuré en un clic",
+      "Actions items avec assignés et dates",
+      "Templates : standup, retro, sales, interview",
+      "Tout en local, aucune limite d'usage",
+    ]}
+  />
+
+  <FeatureSection
+    title="Graphe de connaissances"
+    description="L'IA extrait automatiquement les entités (personnes, sujets, décisions) et construit un graphe reliant toutes vos réunions."
+    bullets={[
+      "Extraction automatique d'entités",
+      "Visualisation graphe interactif",
+      "Liens entre réunions et sujets",
+      "Recherche sémantique par vecteurs",
+    ]}
+    reversed
+  />
+
+  <!-- Comparison -->
+  <section class="py-16 lg:py-20" style="background: var(--color-surface);">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-semibold mb-3" style="color: var(--color-text);">Engra vs les alternatives cloud</h2>
+        <p class="text-base" style="color: var(--color-muted);">La seule solution qui garde vos données 100% sur votre machine.</p>
+      </div>
+      <CompareTable />
+    </div>
+  </section>
+
+  <CTA
+    title="Prêt à reprendre le contrôle de vos réunions ?"
+    subtitle="Toutes les fonctionnalités. 100% local. Aucun abonnement."
+    buttonText="Télécharger gratuitement"
+    buttonHref="/telecharger"
+  />
+</Page>

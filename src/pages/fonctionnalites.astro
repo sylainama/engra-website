@@ -1,0 +1,133 @@
+---
+import Page from "../layouts/Page.astro";
+import FeatureSection from "../components/FeatureSection.astro";
+import CTA from "../components/CTA.astro";
+---
+
+<Page
+  title="Fonctionnalités — Engra"
+  description="Découvrez toutes les fonctionnalités d'Engra : enregistrement, transcription, résumés IA, graphe de connaissances, recherche sémantique, import YouTube et plus."
+>
+  <section class="pt-24 pb-12 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h1 class="text-4xl lg:text-5xl mb-4" style="font-family: var(--font-serif); color: var(--color-text);">
+        Tout ce dont vous avez besoin
+      </h1>
+      <p class="text-lg" style="color: var(--color-muted);">
+        Un outil complet pour capturer, comprendre et exploiter vos réunions.
+      </p>
+    </div>
+  </section>
+
+  <FeatureSection
+    title="Enregistrement & détection automatique"
+    description="Engra détecte automatiquement vos réunions en cours et peut lancer l'enregistrement pour vous."
+    bullets={[
+      "Détection : Zoom, Teams, Google Meet, Slack, Discord",
+      "Capture audio système + microphone simultanée",
+      "Enregistrement micro et système en parallèle",
+      "Raccourci global : Cmd+Shift+R",
+      "Notes vocales rapides : Cmd+Shift+N",
+      "Auto-record configurable avec countdown",
+    ]}
+  />
+
+  <FeatureSection
+    title="Transcription locale"
+    description="Le moteur de transcription tourne intégralement sur votre machine. Aucune donnée audio n'est envoyée."
+    bullets={[
+      "Moteur IA embarqué, 100% hors-ligne",
+      "Transcription incrémentale en temps réel",
+      "Diarisation des locuteurs",
+      "Multi-langues (français, anglais, espagnol...)",
+      "Plusieurs niveaux de modèles selon votre machine",
+      "Segmentation automatique pour longs audios",
+    ]}
+    reversed
+  />
+
+  <FeatureSection
+    title="Résumés & Actions IA"
+    description="L'IA locale génère des résumés structurés, décisions et actions items — tout tourne sur votre poste."
+    bullets={[
+      "5 niveaux de modèles : Lite à Ultra",
+      "Résumé structuré : synthèse, décisions, points clés",
+      "Actions items avec assigné, date, statut",
+      "Templates : standup, retro, sales, interview, brainstorm",
+      "Traitement intelligent pour longs contenus",
+      "Résumés en direct pendant l'enregistrement",
+    ]}
+  />
+
+  <FeatureSection
+    title="Graphe de connaissances"
+    description="L'IA extrait les entités de vos réunions et construit un graphe visuel inter-connecté."
+    bullets={[
+      "Extraction auto : personnes, sujets, décisions, actions",
+      "Visualisation 2D et 3D du graphe",
+      "Liens entre réunions et sujets",
+      "Fusion intelligente des doublons",
+      "Rapports IA par nœud",
+      "Vue mind map",
+    ]}
+    reversed
+  />
+
+  <FeatureSection
+    title="Recherche avancée"
+    description="Retrouvez n'importe quelle information en quelques secondes, même si vous ne vous souvenez pas des mots exacts."
+    bullets={[
+      "Recherche plein texte instantanée",
+      "Recherche sémantique par vecteurs",
+      "Recherche par tags",
+      "Raccourci Cmd+K",
+      "Résultats avec badges de source (Texte, Tag, IA)",
+    ]}
+  />
+
+  <FeatureSection
+    title="Import YouTube & PDF"
+    description="Importez des vidéos YouTube ou des PDF pour les transcrire, résumer et intégrer à votre base de connaissances."
+    bullets={[
+      "Import YouTube avec génération de cours",
+      "Import de playlists en lot",
+      "Import PDF avec extraction de texte",
+      "Quizz générés par l'IA à partir des cours",
+      "Détection automatique de la langue",
+    ]}
+    reversed
+  />
+
+  <FeatureSection
+    title="Intégration calendrier"
+    description="Connectez votre calendrier pour voir vos réunions à venir et associer les enregistrements aux événements."
+    bullets={[
+      "Apple Calendar (natif)",
+      "Google Calendar",
+      "Microsoft Outlook",
+      "Extraction automatique des liens de réunion",
+      "Bannière « réunion à venir »",
+    ]}
+  />
+
+  <FeatureSection
+    title="Export & Sauvegarde"
+    description="Exportez vos notes en PDF ou Markdown. Sauvegardez automatiquement toutes vos données."
+    bullets={[
+      "Export PDF formaté et mis en page",
+      "Export Markdown complet",
+      "Lecture vocale (TTS) avec surlignage phrase par phrase",
+      "Backup auto (quotidien/hebdomadaire)",
+      "Restauration en un clic",
+      "Support hors-ligne total",
+    ]}
+    reversed
+  />
+
+  <CTA
+    title="Prêt à essayer ?"
+    subtitle="100% local, aucun abonnement, achat unique."
+    buttonText="Télécharger Engra"
+    buttonHref="/telecharger"
+  />
+</Page>

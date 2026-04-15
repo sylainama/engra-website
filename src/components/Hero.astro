@@ -1,0 +1,95 @@
+---
+import { t } from '../i18n/utils';
+import { getRouteHref } from '../i18n/routes';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'fr' } = Astro.props;
+const downloadHref = getRouteHref('download', locale);
+const featuresHref = getRouteHref('features', locale);
+---
+
+<section class="relative overflow-hidden py-24 lg:py-32">
+  <div
+    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] opacity-15 blur-3xl rounded-full pointer-events-none"
+    style="background: var(--color-accent);"
+  ></div>
+
+  <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div
+      class="inline-flex items-center gap-2 px-3 py-1 rounded-full border text-xs font-medium mb-8"
+      style="border-color: var(--color-border); color: var(--color-muted);"
+    >
+      <span class="w-2 h-2 rounded-full" style="background: var(--color-success);"></span>
+      {t('hero.badge', locale)}
+    </div>
+
+    <h1
+      class="text-4xl sm:text-5xl lg:text-6xl leading-tight mb-6"
+      style="font-family: var(--font-serif); color: var(--color-text);"
+    >
+      {t('hero.title1', locale)}<br />
+      <span style="color: var(--color-accent);">{t('hero.titleAccent', locale)}</span>
+    </h1>
+
+    <p class="text-lg sm:text-xl max-w-2xl mx-auto mb-10 leading-relaxed" style="color: var(--color-muted);">
+      {t('hero.subtitle', locale)}
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a
+        href={downloadHref}
+        class="px-7 py-3.5 rounded-xl text-sm font-semibold text-white transition-all hover:brightness-110 hover:-translate-y-0.5 hover:shadow-lg"
+        style="background: var(--color-accent); box-shadow: 0 4px 20px color-mix(in srgb, var(--color-accent) 40%, transparent);"
+      >
+        {t('hero.ctaPrimary', locale)}
+      </a>
+      <a
+        href={featuresHref}
+        class="px-7 py-3.5 rounded-xl text-sm font-semibold border transition-all hover:-translate-y-0.5"
+        style="color: var(--color-text); border-color: var(--color-border);"
+      >
+        {t('hero.ctaSecondary', locale)}
+      </a>
+    </div>
+
+    <p class="mt-8 text-xs" style="color: var(--color-muted);">
+      {t('hero.footnote', locale)}
+    </p>
+
+    <div
+      class="mt-16 mx-auto max-w-4xl rounded-2xl border overflow-hidden"
+      style="border-color: var(--color-border); background: var(--color-surface);"
+    >
+      <img
+        src={locale === 'en' ? '/screenshots/app-dark-en.png' : '/screenshots/app-dark.png'}
+        alt={t('hero.screenshot', locale)}
+        id="hero-screenshot-dark"
+        style="width:100%;height:auto;"
+        loading="eager"
+      />
+      <img
+        src={locale === 'en' ? '/screenshots/app-light-en.png' : '/screenshots/app-light.png'}
+        alt={t('hero.screenshot', locale)}
+        id="hero-screenshot-light"
+        style="width:100%;height:auto;display:none;"
+        loading="eager"
+      />
+    </div>
+
+    <script is:inline>
+      function updateScreenshots() {
+        var isDark = document.documentElement.classList.contains('dark');
+        var d = document.getElementById('hero-screenshot-dark');
+        var l = document.getElementById('hero-screenshot-light');
+        if (d) d.style.display = isDark ? 'block' : 'none';
+        if (l) l.style.display = isDark ? 'none' : 'block';
+      }
+      updateScreenshots();
+      new MutationObserver(updateScreenshots).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    </script>
+  </div>
+</section>

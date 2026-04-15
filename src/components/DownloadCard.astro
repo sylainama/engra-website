@@ -1,0 +1,46 @@
+---
+import { t } from '../i18n/utils';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  platform: string;
+  icon: string;
+  filename: string;
+  requirements: string[];
+  downloadUrl: string;
+  detected?: boolean;
+  locale?: Locale;
+}
+
+const { platform, icon, filename, requirements, downloadUrl, detected = false, locale = 'fr' } = Astro.props;
+---
+
+<div
+  class:list={["p-6 rounded-2xl border flex flex-col transition-all", detected ? "ring-2" : ""]}
+  style={`background: var(--color-surface); border-color: var(--color-border); ${detected ? "ring-color: var(--color-accent);" : ""}`}
+  data-platform={platform.toLowerCase()}
+>
+  {detected && (
+    <span class="inline-block mb-3 px-2.5 py-0.5 rounded-full text-xs font-medium text-white w-fit" style="background: var(--color-accent);">
+      {t('download.detected', locale)}
+    </span>
+  )}
+
+  <div class="text-3xl mb-3">{icon}</div>
+  <h3 class="text-xl font-semibold mb-1" style="color: var(--color-text);">{platform}</h3>
+  <p class="text-sm mb-4 font-mono" style="color: var(--color-muted);">{filename}</p>
+
+  <ul class="space-y-1.5 mb-6 flex-1">
+    {requirements.map((r) => (
+      <li class="text-xs" style="color: var(--color-muted);">{r}</li>
+    ))}
+  </ul>
+
+  <a
+    href={downloadUrl}
+    class="block text-center py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:brightness-110 hover:-translate-y-0.5"
+    style="background: var(--color-accent);"
+  >
+    {t('download.btn', locale)}
+  </a>
+</div>

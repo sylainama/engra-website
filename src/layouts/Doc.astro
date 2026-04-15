@@ -1,0 +1,33 @@
+---
+import Base from "./Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import DocSidebar from "../components/DocSidebar.astro";
+import { getLangFromUrl, t } from "../i18n/utils";
+import type { Locale } from "../i18n/utils";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  locale?: Locale;
+}
+
+const locale = Astro.props.locale ?? getLangFromUrl(Astro.url);
+const { title, description } = Astro.props;
+const currentPath = Astro.url.pathname;
+const titleSuffix = t('doc.titleSuffix', locale);
+---
+
+<Base title={`${title} — ${titleSuffix}`} description={description} locale={locale}>
+  <Header locale={locale} />
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex gap-10">
+      <DocSidebar currentPath={currentPath} locale={locale} />
+      <article class="prose flex-1 min-w-0">
+        <slot />
+      </article>
+    </div>
+  </div>
+  <Footer locale={locale} />
+</Base>

@@ -1,0 +1,87 @@
+---
+import Page from "../../layouts/Page.astro";
+import PricingTable from "../../components/PricingTable.astro";
+import FAQ from "../../components/FAQ.astro";
+
+const locale = "en";
+---
+
+<Page title="Pricing — Engra" description="One-time license from €49. No subscription." locale={locale}>
+  <section class="pt-24 pb-8 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h1 class="text-4xl lg:text-5xl mb-4" style="font-family: var(--font-serif); color: var(--color-text);">
+        One purchase. Forever.
+      </h1>
+      <p class="text-lg mb-2" style="color: var(--color-muted);">
+        No subscription, no hidden fees. Pay once, it's yours.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <PricingTable locale={locale} />
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="py-16" style="background: var(--color-surface);">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h2 class="text-2xl font-semibold mb-10" style="color: var(--color-text);">How it works</h2>
+      <div class="grid sm:grid-cols-3 gap-8">
+        {[
+          { step: "1", title: "Download", desc: "Install Engra for free on your machine." },
+          { step: "2", title: "Purchase", desc: "When you're convinced, buy a license from €49." },
+          { step: "3", title: "Activate", desc: "Receive your key by email and activate it in the app." },
+        ].map((item) => (
+          <div class="text-center">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white mx-auto mb-3" style="background: var(--color-accent);">
+              {item.step}
+            </div>
+            <h3 class="text-sm font-semibold mb-1" style="color: var(--color-text);">{item.title}</h3>
+            <p class="text-xs" style="color: var(--color-muted);">{item.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-semibold text-center mb-10" style="color: var(--color-text);">Frequently asked questions</h2>
+      <FAQ
+        items={[
+          {
+            question: "Is there a subscription?",
+            answer: "No. It's a one-time purchase. You own the license forever. Minor updates are included.",
+          },
+          {
+            question: "Can I switch devices?",
+            answer: "Yes. Deactivate a device from Engra Settings and activate a new one. The number of simultaneous devices depends on your plan.",
+          },
+          {
+            question: "What is the refund policy?",
+            answer: "30-day money-back guarantee, no questions asked. Simply contact us by email.",
+          },
+          {
+            question: "How does the AI work?",
+            answer: "AI runs entirely on your machine. Models are downloaded on first launch, then everything works offline without any connection.",
+          },
+          {
+            question: "Do I need an internet connection?",
+            answer: "No. Everything works completely offline after the initial model download. Perfect for sensitive or secure environments.",
+          },
+          {
+            question: "Is the app compatible with Apple Silicon?",
+            answer: "Yes. Engra is distributed as a Universal binary (Apple Silicon + Intel). On M1/M2/M3/M4 Macs, AI models natively leverage the Neural Engine for better performance.",
+          },
+          {
+            question: "Is my data sent anywhere?",
+            answer: "No. Engra never contacts any external server other than for license verification. Your recordings, transcriptions, and summaries stay exclusively on your machine.",
+          },
+        ]}
+      />
+    </div>
+  </section>
+</Page>

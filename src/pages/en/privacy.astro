@@ -1,0 +1,49 @@
+---
+import Page from "../../layouts/Page.astro";
+
+const locale = "en";
+---
+
+<Page title="Privacy policy — Engra" description="Engra privacy policy." locale={locale}>
+  <section class="py-24">
+    <div class="max-w-3xl mx-auto px-4 prose">
+      <h1>Privacy policy</h1>
+      <p><em>Last updated: April 2026</em></p>
+
+      <h2>Our commitment</h2>
+      <p>
+        Engra is designed to be <strong>100% local</strong>. Your recordings,
+        transcriptions and summaries never leave your computer.
+      </p>
+
+      <h2>The Engra application</h2>
+      <p>The Engra desktop application:</p>
+      <ul>
+        <li>Collects <strong>no</strong> usage data or telemetry</li>
+        <li>Transmits <strong>no</strong> audio, text or summary to any external server</li>
+        <li>Stores all data locally on your machine</li>
+        <li>Only contacts the license service for verification (license key + machine fingerprint, nothing else)</li>
+      </ul>
+
+      <h2>The engra.app website</h2>
+      <p>This website:</p>
+      <ul>
+        <li>Uses <strong>no</strong> tracking cookies</li>
+        <li>Collects no personal data during browsing</li>
+        <li>May use privacy-friendly analytics (no cookies, no personal data, GDPR compliant)</li>
+      </ul>
+
+      <h2>Payment</h2>
+      <p>
+        Payments are handled by a third-party provider.
+        Engra never has access to your payment information (credit card, etc.).
+      </p>
+
+      <h2>Your rights</h2>
+      <p>
+        In accordance with the GDPR, you have the right to access, rectify
+        and delete your data. Contact <strong>contact@engra.app</strong>.
+      </p>
+    </div>
+  </section>
+</Page>

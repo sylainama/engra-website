@@ -1,0 +1,69 @@
+---
+import { t } from '../i18n/utils';
+import { getRouteHref } from '../i18n/routes';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  currentPath: string;
+  locale?: Locale;
+}
+
+const { currentPath, locale = 'fr' } = Astro.props;
+
+const sections = [
+  {
+    title: t('docSidebar.gettingStarted', locale),
+    links: [
+      { route: 'guide',         label: t('docSidebar.introduction', locale) },
+      { route: 'guideInstallation', label: t('docSidebar.installation', locale) },
+      { route: 'guideFirstRec', label: t('docSidebar.firstRecording', locale) },
+    ],
+  },
+  {
+    title: t('docSidebar.features', locale),
+    links: [
+      { route: 'guideTranscript', label: t('docSidebar.transcription', locale) },
+      { route: 'guideSummaries',  label: t('docSidebar.aiSummaries', locale) },
+      { route: 'guideShortcuts',  label: t('docSidebar.shortcuts', locale) },
+    ],
+  },
+  {
+    title: t('docSidebar.help', locale),
+    links: [
+      { route: 'guideFaq', label: t('docSidebar.faq', locale) },
+    ],
+  },
+];
+---
+
+<aside class="hidden lg:block w-56 flex-shrink-0">
+  <nav class="sticky top-24 space-y-6">
+    {sections.map((section) => (
+      <div>
+        <h4 class="text-xs font-semibold uppercase tracking-wider mb-2.5" style="color: var(--color-muted);">
+          {section.title}
+        </h4>
+        <ul class="space-y-1">
+          {section.links.map((link) => {
+            const href = getRouteHref(link.route, locale);
+            const isActive = currentPath === href || currentPath === href + "/";
+            return (
+              <li>
+                <a
+                  href={href}
+                  class="block px-3 py-1.5 rounded-lg text-sm transition-colors"
+                  style={isActive
+                    ? `color: var(--color-accent); background: color-mix(in srgb, var(--color-accent) 10%, transparent); font-weight: 500;`
+                    : `color: var(--color-muted);`
+                  }
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
+  </nav>
+</aside>

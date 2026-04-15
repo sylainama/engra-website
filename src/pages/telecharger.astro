@@ -1,0 +1,96 @@
+---
+import Page from "../layouts/Page.astro";
+import DownloadCard from "../components/DownloadCard.astro";
+
+const releaseBase = "https://engra-download-proxy.syl-ainama.workers.dev/latest";
+---
+
+<Page title="Télécharger Engra" description="Téléchargez Engra gratuitement pour macOS, Linux ou Windows.">
+  <section class="pt-24 pb-8 text-center">
+    <div class="max-w-3xl mx-auto px-4">
+      <h1 class="text-4xl lg:text-5xl mb-4" style="font-family: var(--font-serif); color: var(--color-text);">
+        Télécharger Engra
+      </h1>
+      <p class="text-lg" style="color: var(--color-muted);">
+        Choisissez votre plateforme. Gratuit au téléchargement.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-12">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-6" id="download-cards">
+        <DownloadCard
+          platform="macOS"
+          icon=""
+          filename="Engra-macOS.dmg"
+          requirements={["macOS 13 (Ventura) ou supérieur", "Apple Silicon + Intel (Universal)", "Signé et notarisé par Apple"]}
+          downloadUrl={`${releaseBase}/macos`}
+        />
+        <DownloadCard
+          platform="Linux"
+          icon="🐧"
+          filename="Engra-Linux-x64.tar.gz"
+          requirements={["Ubuntu 22.04+, Fedora 38+, Arch", "x86_64", "GTK3 requis"]}
+          downloadUrl={`${releaseBase}/linux`}
+        />
+        <DownloadCard
+          platform="Windows"
+          icon="🪟"
+          filename="Engra-Windows-x64.zip"
+          requirements={["Windows 10/11 64-bit", "Extraire et lancer, pas d'installeur", "x86_64"]}
+          downloadUrl={`${releaseBase}/windows`}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- Prerequisites -->
+  <section class="py-16" style="background: var(--color-surface);">
+    <div class="max-w-3xl mx-auto px-4">
+      <h2 class="text-2xl font-semibold mb-8 text-center" style="color: var(--color-text);">Prérequis</h2>
+      <div class="space-y-6">
+        <div class="p-5 rounded-xl border" style="border-color: var(--color-border);">
+          <h3 class="text-sm font-semibold mb-2" style="color: var(--color-text);">Transcription</h3>
+          <p class="text-sm" style="color: var(--color-muted);">
+            Le moteur de transcription est téléchargé et installé automatiquement au premier lancement d'Engra. Rien à faire.
+          </p>
+        </div>
+        <div class="p-5 rounded-xl border" style="border-color: var(--color-border);">
+          <h3 class="text-sm font-semibold mb-2" style="color: var(--color-text);">Résumés IA — Optionnel</h3>
+          <p class="text-sm" style="color: var(--color-muted);">
+            Les modèles IA pour les résumés automatiques sont téléchargés en un clic depuis les paramètres de l'application. Aucune configuration technique requise.
+          </p>
+        </div>
+        <div class="p-5 rounded-xl border" style="border-color: var(--color-border);">
+          <h3 class="text-sm font-semibold mb-2" style="color: var(--color-text);">Configuration recommandée</h3>
+          <ul class="text-sm space-y-1.5" style="color: var(--color-muted);">
+            <li>• 8 Go de RAM minimum (16 Go recommandé pour les modèles avancés)</li>
+            <li>• 5 Go d'espace disque minimum</li>
+            <li>• macOS : autorisation Micro + Enregistrement d'écran (pour l'audio système)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-8 text-center">
+        <a href="/guide/installation" class="text-sm font-medium underline underline-offset-2" style="color: var(--color-accent);">
+          Guide d'installation complet →
+        </a>
+      </div>
+    </div>
+  </section>
+</Page>
+
+<script is:inline>
+  const ua = navigator.userAgent.toLowerCase();
+  let detected = "linux";
+  if (ua.includes("mac")) detected = "macos";
+  else if (ua.includes("win")) detected = "windows";
+
+  document.querySelectorAll("[data-platform]").forEach((card) => {
+    if (card.dataset.platform === detected) {
+      card.classList.add("ring-2");
+      card.style.setProperty("ring-color", "var(--color-accent)");
+      card.parentElement?.prepend(card);
+    }
+  });
+</script>

@@ -1,0 +1,81 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+import { getAlternatePath } from '../i18n/routes';
+import type { Locale } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  locale?: Locale;
+}
+
+const {
+  title,
+  description = "Engra enregistre, transcrit et résume vos réunions avec une IA 100% locale. Aucune donnée ne quitte votre ordinateur.",
+  ogImage = "/logo/engra_512.png",
+  locale = getLangFromUrl(Astro.url),
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogLocale = locale === 'en' ? 'en_US' : 'fr_FR';
+
+const frPath = getAlternatePath(Astro.url.pathname, 'fr');
+const enPath = getAlternatePath(Astro.url.pathname, 'en');
+const frUrl = new URL(frPath, Astro.site);
+const enUrl = new URL(enPath, Astro.site);
+---
+
+<!doctype html>
+<html lang={locale} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- hreflang -->
+    <link rel="alternate" hreflang="fr" href={frUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={frUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:locale" content={ogLocale} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo/engra_512.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Theme toggle -->
+    <script is:inline>
+      const theme = localStorage.getItem("theme");
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.classList.add("light");
+      }
+    </script>
+  </head>
+  <body class="min-h-screen antialiased">
+    <slot />
+  </body>
+</html>
