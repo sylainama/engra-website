@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://sylainama.github.io',
-  base: '/engra-website',
+  base: '/engra-website/',
   i18n: {
     defaultLocale: 'fr',
     locales: ['fr', 'en'],
